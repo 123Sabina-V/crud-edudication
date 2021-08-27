@@ -1,5 +1,5 @@
 @extends('layout')
 @section('content')
-@section('title','Create Employees')
+@section('title','Create Employee')
     <x-create-employees-component/>
 @endsection
