@@ -14,9 +14,10 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after("id");
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->string('name',150);
             $table->string('email',150);
             $table->string('website',150);

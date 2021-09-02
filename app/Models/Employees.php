@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Employees extends Model
 {
     protected $fillable=[
-        'company_id','active','first_name','last_name','phone','email'
+        'user_id','company_id','active','first_name','last_name','phone','email'
     ];
 }
