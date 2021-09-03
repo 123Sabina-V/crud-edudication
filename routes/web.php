@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('delete/{id}', [CompaniesController::class, 'delete'])->name('delete_companies');
         Route::match(['get', 'post'], 'edit/{id}', [CompaniesController::class, 'edit'])->name('edit_company');
         Route::post('assign/employee', [CompaniesController::class, 'assignEmployee']);
+        Route::get('/assigned/employees', [CompaniesController::class, 'getNotAssignedEmployees']);
+        Route::post('un-assign/employee', [CompaniesController::class, 'unAssignEmployee']);
     });
 
     Route::prefix('employees')->group(function () {

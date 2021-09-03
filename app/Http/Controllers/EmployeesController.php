@@ -71,7 +71,7 @@ class EmployeesController extends Controller
         if ($employees) {
             $employees->delete();
         }
-        return redirect()->route('employees');
+        return redirect()->route('employees')->withDanger('Updated employees ' . $employees->name);
     }
 
     public function edit(Request $request)
@@ -92,7 +92,7 @@ class EmployeesController extends Controller
             $employee->email = $data['email'];
             $employee->update();
 
-            return redirect()->route('employees');
+            return redirect()->route('employees')->withSuccess('Updated user' . $employee->name);
         }
 
         return view('employees.edit', [

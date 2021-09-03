@@ -10,6 +10,7 @@
                 <th scope='col'>№</th>
                 <th scope='col'>first_name</th>
                 <th scope='col'>last_name</th>
+                <th scope='col'>Company</th>
                 <th scope='col'>phone</th>
                 <th scope='col'>email</th>
                 <th scope='col'>actions</th>
@@ -21,6 +22,7 @@
                 <th scope='row'>{{$employee->id}}</th>
                 <th scope='row'>{{$employee->first_name}}</th>
                 <th scope='row'>{{$employee->last_name}}</th>
+                <th scope='row'>{{$employee->company->name ?? "-"}}</th>
                 <th scope='row'>{{$employee->phone}}</th>
                 <th scope='row'>{{$employee->email}}</th>
                 <th scope='row'>

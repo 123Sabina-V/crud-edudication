@@ -31,8 +31,11 @@ class CompaniesController extends Controller
     public function get()
     {
         $user = Auth::user();
+        
         $companies = Companies::where("user_id", $user->id)->get();
+
         $employees = Employees::where("user_id", $user->id)->get();
+
         return view('companies.index', [
             "сompanies" => $companies,
             "employees" => json_encode($employees)
@@ -82,9 +85,10 @@ class CompaniesController extends Controller
         $user = Auth::user();
         $companies = Companies::find($id);
         if ($companies) {
+            Employees::where("company_id", $id)->update(["company_id" => null]);
             $companies->delete();
         }
-        return redirect()->route('companies');
+        return redirect()->route('companies')->withDanger('Deleted company' . $companies->name);
     }
 
 
@@ -100,7 +104,7 @@ class CompaniesController extends Controller
             $company->email = $data['email'];
             $company->update();
 
-            return redirect()->route('companies');
+            return redirect()->route('companies')->withSuccess('Updated company' . $company->name);
         }
 
         return view('companies.edit', [
@@ -115,8 +119,43 @@ class CompaniesController extends Controller
         $employee = Employees::find((int)$data['employee_id']);
         $employee->company_id = (int)$data['company_id'];
         $employee->save();
-        // $data = Employees::find($request->employee_id);
-        // $data->company_id = $request->company_id;
-        // $data->update();
+
+        return  json_encode($employee);
+        // return employee
+        // json encoded
+    }
+
+    public function getAssignedEmployees(Request $request)
+    {
+        $data = $request->except("_token");
+
+        $employees = Employees::where("company_id", (int)$data['company_id'])->get();
+
+        return json_encode($employees);
+    }
+
+    public function getNotAssignedEmployees(Request $request)
+    {
+        $data = $request->except("_token");
+
+        $employees = Employees::where("company_id", "!=", (int)$data['company_id'])->get();
+
+        return json_encode($employees);
+    }
+    
+    public function unAssignEmployee(Request $request)
+    {
+        $data = $request->except("_token");
+        $employee = Employees::find((int)$data['employee_id']);
+        
+        if(!$employee){
+            return false;
+        }
+
+        $employee->company_id=null;
+        $employee->save();
+
+        return true;
+
     }
 }

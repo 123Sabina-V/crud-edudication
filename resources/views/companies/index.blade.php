@@ -31,7 +31,8 @@
                             @csrf
                             <button class="btn btn-primary mr-2">Edit</button>
                         </form>
-                        <button type="button" data-company-id="{{$company->id}}" class="btn btn-primary add-employee" data-bs-toggle="modal" data-bs-target="#exampleModal">Assign employee</button>
+                        <button type="button" data-company-id="{{$company->id}}" class="btn btn-primary add-employee" data-bs-toggle="modal" data-bs-target="#exampleModal">Employees</button>
+
                     </div>
                 </th>
             </tr>
@@ -41,7 +42,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -49,14 +50,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+                        <table class="table table-striped employees-table">
 
+                        </table>
                         <input type="hidden" id="company_id" name="company_id" value="">
                         <div class="col-sm">
                             <select id="select" class="form-control" id="employee_id" name="employee_id">
                                 <option value=""> Select employee</option>
                             </select>
                         </div>
-
                         <div class="col-sm text-center">
                             <button class="btn btn-outline-primary assign-employee-btn">Assign</button>
                         </div>
@@ -92,5 +94,4 @@
 
 
 <!-- Modal -->
-
 @endsection
